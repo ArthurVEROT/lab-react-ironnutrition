@@ -2,17 +2,43 @@ import { useState } from 'react';
 import './App.css';
 
 import foods from './foods.json';
+
 import FoodBox from './components/FoodBox';
+import AddFoodForm from './components/AddFoodForm';
+import Search from './components/Search';
+import { Divider } from 'antd';
 
 function App() {
-  const [foodList, setFoodList] = useState(foods);
+  const [allFoods, setAllFoods] = useState(foods);
+  const [foodList, setFoodList] = useState(allFoods);
+
+  const addFood = (newFood) => {
+    setAllFoods([...allFoods, newFood]);
+  };
+
+  const filterFood = (element) => {
+    const filteredList = allFoods.filter((listItem) => {
+      return listItem.name.toLowerCase().includes(element.toLowerCase());
+    });
+    setFoodList(filteredList);
+  };
 
   return (
     <div className="App">
-    <h1>Food list</h1>
-      {foodList.map((listItem) => {
-        return <FoodBox key={listItem.name} {...listItem} />;
-      })}
+      <div className="section">
+        <AddFoodForm addFood={addFood} />
+      </div>
+      <div className="section">
+        <Search filterFood={filterFood} />
+      </div>
+      <div className="section">
+        <Divider>Food list</Divider>
+        <div className="allFood">
+          {foodList.map((listItem) => {
+            return <FoodBox key={listItem.name} {...listItem} />;
+          })}
+        </div>
+      </div>
     </div>
   );
 }
