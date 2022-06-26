@@ -23,6 +23,11 @@ function App() {
     setFoodList(filteredList);
   };
 
+  const deleteFood = (food) => {
+    const filteredFoods = foodList.filter((x) => x !== food);
+    setFoodList(filteredFoods);
+  };
+
   return (
     <div className="App">
       <div className="section">
@@ -35,7 +40,14 @@ function App() {
         <Divider>Food list</Divider>
         <div className="allFood">
           {foodList.map((listItem) => {
-            return <FoodBox key={listItem.name} {...listItem} />;
+            return (
+              <FoodBox
+                key={listItem.name}
+                deleteFood={deleteFood}
+                listItem={listItem}
+                {...listItem}
+              />
+            );
           })}
         </div>
       </div>

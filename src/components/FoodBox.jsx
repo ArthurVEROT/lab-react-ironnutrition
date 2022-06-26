@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Col, Button } from 'antd';
 
-const FoodBox = ({ name, image, calories, servings }) => {
+const FoodBox = ({ listItem, name, image, calories, servings, deleteFood }) => {
   return (
     <>
       <Col>
@@ -12,7 +12,7 @@ const FoodBox = ({ name, image, calories, servings }) => {
           <p>
             <b>Total Calories: {calories * servings} </b> kcal
           </p>
-          <Button type="primary"> Delete </Button>
+          <Button type="primary" onClick={()=> deleteFood(listItem)}> Delete </Button>
         </Card>
       </Col>
     </>
